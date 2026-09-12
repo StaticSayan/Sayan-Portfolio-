@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayan Chakraborty — Statistics &amp; Data Analytics</title>
+<meta name="description" content="Portfolio of Sayan Chakraborty, Statistics postgraduate and data analyst — projects, academic record and contact links.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --paper-line: rgba(20,30,40,0.06);
+    --ink:#141A1F;
+    --ink-soft:#4B535B;
+    --navy:#101D33;
+    --navy-2:#182B4A;
+    --blue:#2857C9;
+    --blue-soft:#DCE5FA;
+    --amber:#C98A2E;
+    --amber-soft:#F3E2C4;
+    --line:#D8D3C7;
+    --radius:2px;
+    --focus: 3px solid #2857C9;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--blue);}
+  a:focus-visible, button:focus-visible, .tab:focus-visible{outline:var(--focus); outline-offset:3px;}
+
+  .skip-link{
+    position:absolute; left:-9999px; top:0; background:var(--ink); color:#fff;
+    padding:10px 16px; z-index:100; font-weight:600;
+  }
+  .skip-link:focus{left:12px; top:12px;}
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,244,239,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1040px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px;
+  }
+  .nav-name{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem;}
+  nav.nav-links{display:flex; gap:24px; flex-wrap:wrap;}
+  nav.nav-links a{
+    color:var(--ink-soft); text-decoration:none; font-size:0.92rem; font-weight:500;
+    border-bottom:1px solid transparent; padding-bottom:2px;
+  }
+  nav.nav-links a:hover{color:var(--blue); border-color:var(--blue);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg, rgba(16,29,51,0.0), rgba(16,29,51,0.0)),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 34px),
+      var(--navy);
+    color:#F3F1EA;
+    padding:88px 0 76px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .eyebrow-tag{
+    display:inline-block; font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    color:#9FB4E0; background:rgba(255,255,255,0.06); border:1px solid rgba(159,180,224,0.35);
+    padding:5px 10px; border-radius:2px; margin-bottom:22px;
+  }
+  .hero h1{
+    color:#fff; font-size:clamp(2.4rem, 5.4vw, 3.7rem); line-height:1.05; max-width:14ch;
+  }
+  .hero p.role{
+    font-family:'JetBrains Mono', monospace; color:#A9C0EE; font-size:1rem; margin-top:16px;
+  }
+  .hero p.lead{
+    max-width:56ch; color:#CBD3DE; font-size:1.08rem; margin-top:22px;
+  }
+  .hero-links{
+    display:flex; flex-wrap:wrap; gap:14px; margin-top:34px;
+  }
+  .hero-links a{
+    display:inline-flex; align-items:center; gap:8px;
+    color:#F3F1EA; text-decoration:none; font-size:0.94rem; font-weight:500;
+    border:1px solid rgba(255,255,255,0.28); padding:10px 16px; border-radius:2px;
+    transition:background 0.15s ease, border-color 0.15s ease;
+  }
+  .hero-links a:hover{background:rgba(255,255,255,0.1); border-color:#fff;}
+  .hero-links a.primary{background:var(--blue); border-color:var(--blue);}
+  .hero-links a.primary:hover{background:#3766DE;}
+
+  .hero-stats{
+    margin-top:56px; display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid rgba(255,255,255,0.16);
+  }
+  .hero-stats div{padding:20px 18px 0 0; border-right:1px solid rgba(255,255,255,0.12);}
+  .hero-stats div:last-child{border-right:none;}
+  .hero-stats .num{font-family:'JetBrains Mono', monospace; font-size:1.5rem; color:#fff; font-weight:600;}
+  .hero-stats .lbl{font-size:0.82rem; color:#9AA6B5; margin-top:4px;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:72px 0;}
+  section.alt{background:#F0ECE2; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:20px;
+    margin-bottom:36px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:1.9rem;}
+  .section-num{font-family:'JetBrains Mono', monospace; color:var(--ink-soft); font-size:0.85rem;}
+
+  .lead-text{max-width:64ch; color:var(--ink-soft); font-size:1.05rem;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line); margin-top:28px;
+  }
+  .skill-card{background:var(--paper); padding:22px;}
+  .skill-card h3{font-size:1rem; font-family:'Inter'; font-weight:600; margin-bottom:10px;}
+  .skill-card ul{margin:0; padding:0; list-style:none;}
+  .skill-card li{
+    font-size:0.9rem; color:var(--ink-soft); padding:4px 0; border-top:1px dashed var(--line);
+  }
+  .skill-card li:first-child{border-top:none;}
+
+  /* ---------- ACADEMIC PROGRESS ---------- */
+  .chart-panel{
+    background:#fff; border:1px solid var(--line); padding:24px 24px 12px;
+    margin-top:20px;
+  }
+  .chart-panel canvas{max-height:340px;}
+  .chart-tabs{display:flex; gap:8px; margin-top:28px; flex-wrap:wrap;}
+  .tab{
+    font-family:'JetBrains Mono', monospace; font-size:0.85rem;
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    padding:9px 16px; cursor:pointer; border-radius:2px;
+  }
+  .tab[aria-selected="true"]{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .sr-table{
+    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);
+  }
+  .callout{
+    display:flex; gap:16px; margin-top:24px; padding:18px 20px;
+    background:var(--amber-soft); border-left:3px solid var(--amber);
+  }
+  .callout p{margin:0; font-size:0.95rem; color:#4a3a1c;}
+
+  .degree-table{width:100%; border-collapse:collapse; margin-top:14px; font-size:0.92rem;}
+  .degree-table th, .degree-table td{
+    text-align:left; padding:10px 12px; border-bottom:1px solid var(--line);
+  }
+  .degree-table th{font-family:'JetBrains Mono', monospace; font-weight:500; color:var(--ink-soft); font-size:0.8rem;}
+  .degree-table td.num{font-family:'JetBrains Mono', monospace;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-list{margin-top:28px; display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line);}
+  .project{background:var(--paper); padding:26px 26px;}
+  .project-top{display:flex; justify-content:space-between; gap:20px; align-items:baseline; flex-wrap:wrap;}
+  .project h3{font-size:1.15rem; max-width:46ch;}
+  .project .tools{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--blue); white-space:nowrap;}
+  .project ul{margin:14px 0 0; padding-left:20px; color:var(--ink-soft); font-size:0.95rem;}
+  .project li{margin-bottom:6px;}
+
+  /* ---------- EDUCATION ---------- */
+  .edu-item{
+    display:grid; grid-template-columns:120px 1fr; gap:20px;
+    padding:22px 0; border-top:1px solid var(--line);
+  }
+  .edu-item:first-child{border-top:none;}
+  .edu-year{font-family:'JetBrains Mono', monospace; color:var(--ink-soft); font-size:0.85rem;}
+  .edu-item h3{font-size:1.05rem; margin-bottom:4px;}
+  .edu-item p{margin:0; color:var(--ink-soft); font-size:0.92rem;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    background:var(--navy); color:#EDEBE3; padding:64px 0 40px;
+  }
+  footer h2{color:#fff; font-size:2rem; max-width:16ch;}
+  footer p.lead-text{color:#B9C2CE;}
+  .contact-links{margin-top:32px; display:flex; flex-wrap:wrap; gap:14px;}
+  .contact-links a{
+    color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,0.28);
+    padding:12px 18px; border-radius:2px; font-size:0.94rem; font-weight:500;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .contact-links a:hover{background:rgba(255,255,255,0.1); border-color:#fff;}
+  .fine-print{margin-top:48px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.15);
+    font-size:0.82rem; color:#8B95A3;}
+
+  @media (max-width: 720px){
+    .hero-stats{grid-template-columns:repeat(2,1fr); row-gap:20px;}
+    .edu-item{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <span class="nav-name">Sayan Chakraborty</span>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#progress">Academic progress</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow-tag">Kolkata, India</span>
+      <h1>Statistics, made into decisions.</h1>
+      <p class="role">Statistics &amp; Data Analytics</p>
+      <p class="lead">M.Sc. Statistics candidate at Presidency University, Kolkata, working across Python, R and Power BI to turn messy, multi-dimensional datasets into recommendations — from clinical trial design to wildlife conservation to ride-hailing operations.</p>
+
+      <div class="hero-links">
+        <a class="primary" href="mailto:sayanchakraborty29122003@gmail.com">Email me</a>
+        <a href="https://linkedin.com/in/sayanchakraborty29" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/StaticSayan" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="tel:+917001609526">+91 7001609526</a>
+      </div>
+
+      <div class="hero-stats">
+        <div><div class="num">9.40</div><div class="lbl">M.Sc. Year 1 SGPA</div></div>
+        <div><div class="num">7.52</div><div class="lbl">B.Sc. (Hons.) CGPA</div></div>
+        <div><div class="num">5th</div><div class="lbl">Rank, B.Sc. batch</div></div>
+        <div><div class="num">50K+</div><div class="lbl">Records analysed, largest project</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Profile</h2>
+        <span class="section-num mono">01</span>
+      </div>
+      <p class="lead-text">A Statistics postgraduate with a strong foundation in statistical methodology, data analysis and quantitative problem solving. Comfortable in Python, R, Excel, Power BI and C++, with hands-on experience across data cleaning, exploratory analysis, visualisation and advanced statistical modelling — applied to ecological, business, media, mobility and clinical trial datasets.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Programming &amp; statistics</h3>
+          <ul><li>Python</li><li>R</li><li>C++</li></ul>
+        </div>
+        <div class="skill-card">
+          <h3>Analysis &amp; visualisation</h3>
+          <ul><li>Pandas · NumPy</li><li>Matplotlib · Seaborn</li><li>Power BI</li></ul>
+        </div>
+        <div class="skill-card">
+          <h3>Tools</h3>
+          <ul><li>Excel (Advanced)</li><li>Jupyter Notebook</li><li>LyX · Word</li></ul>
+        </div>
+        <div class="skill-card">
+          <h3>Core strengths</h3>
+          <ul><li>Statistical analysis</li><li>Data cleaning &amp; EDA</li><li>Data modelling</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="progress">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Academic progress</h2>
+        <span class="section-num mono">02</span>
+      </div>
+      <p class="lead-text">Semester-by-semester SGPA across the B.Sc. (Hons.) in Statistics and the ongoing M.Sc., drawn directly from Presidency University grade cards. The dip in the third semester and the recovery that follows is the most honest part of this record.</p>
+
+      <div class="chart-tabs" role="tablist" aria-label="Choose which academic record to chart">
+        <button class="tab" role="tab" id="tab-combined" aria-selected="true" aria-controls="panel-combined">Full trajectory</button>
+        <button class="tab" role="tab" id="tab-bsc" aria-selected="false" aria-controls="panel-bsc">B.Sc. by paper group</button>
+      </div>
+
+      <div class="chart-panel" id="panel-combined" role="tabpanel" aria-labelledby="tab-combined">
+        <canvas id="chartCombined" role="img" aria-label="Line chart of SGPA across all eight completed semesters, rising from 4.50 in B.Sc. semester 1 to a low of 4.27 in semester 3, then climbing to 9.50 by B.Sc. semester 6, and holding at 9.40 through both completed M.Sc. semesters."></canvas>
+      </div>
+
+      <div class="chart-panel" id="panel-bsc" role="tabpanel" aria-labelledby="tab-bsc" hidden>
+        <canvas id="chartBsc" role="img" aria-label="Grouped bar chart comparing major-subject SGPA against overall SGPA for each of the six B.Sc. semesters."></canvas>
+      </div>
+
+      <table class="sr-table">
+        <caption>Semester-wise SGPA, B.Sc. (Hons.) Statistics and M.Sc. Statistics, Presidency University</caption>
+        <thead><tr><th>Semester</th><th>SGPA (Major)</th><th>SGPA (Overall)</th></tr></thead>
+        <tbody>
+          <tr><td>B.Sc. Semester 1</td><td>4.50</td><td>6.45</td></tr>
+          <tr><td>B.Sc. Semester 2</td><td>6.50</td><td>6.50</td></tr>
+          <tr><td>B.Sc. Semester 3</td><td>4.27</td><td>4.21</td></tr>
+          <tr><td>B.Sc. Semester 4</td><td>8.91</td><td>8.93</td></tr>
+          <tr><td>B.Sc. Semester 5</td><td>9.25</td><td>9.25</td></tr>
+          <tr><td>B.Sc. Semester 6</td><td>9.50</td><td>9.50</td></tr>
+          <tr><td>M.Sc. Semester 1</td><td>9.40</td><td>9.40</td></tr>
+          <tr><td>M.Sc. Semester 2</td><td>9.40</td><td>9.40</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <p><strong>Reading the record:</strong> final B.Sc. (Hons.) CGPA was 7.52, securing 5th rank in the batch. The final three B.Sc. semesters — Design of Experiments, Time Series Analysis, Econometrics, Multivariate Analysis, Survival Analysis and Stochastic Processes among them — all graded O/A+ or higher. The M.Sc. has opened at a 9.40 SGPA average across both completed semesters.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Selected projects</h2>
+        <span class="section-num mono">03</span>
+      </div>
+
+      <div class="project-list">
+        <div class="project">
+          <div class="project-top">
+            <h3>Covariate-Adjusted Response-Adaptive Design in Clinical Trials (Dissertation)</h3>
+            <span class="tools">Kernel smoothing · Adaptive design</span>
+          </div>
+          <ul>
+            <li>Built a covariate-adjusted response-adaptive allocation algorithm for sequential clinical trials, using kernel smoothing to predict patient-specific outcomes from historical treatment efficacy.</li>
+            <li>Formulated time-adjusted estimators to correct for random observation delays, reducing estimation bias toward fast responders under fixed-duration constraints.</li>
+            <li>Designed a time-decaying probabilistic assignment model balancing ethical patient advantage against statistical balance via dynamic tuning constants.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3>Bird Species Diversity &amp; Distribution Analysis</h3>
+            <span class="tools">Python · Power BI</span>
+          </div>
+          <ul>
+            <li>Unified 50,000+ bird observations from 10+ national park units to compare biodiversity across forest and grassland ecosystems.</li>
+            <li>Identified 5+ biodiversity hotspots and 20+ at-risk species, informing conservation, eco-tourism and habitat-restoration recommendations.</li>
+            <li>Assessed four environmental variables and human disturbance to isolate the key ecological drivers.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3>Amazon Prime Video (US) Content Insights</h3>
+            <span class="tools">Python · Pandas</span>
+          </div>
+          <ul>
+            <li>Analysed 9,000+ streaming titles to surface genre dominance, yearly growth patterns and contributor concentration.</li>
+            <li>Evaluated regional distribution and IMDb performance to highlight catalog acquisition and diversification opportunities.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3>Uber Supply–Demand Gap Analysis</h3>
+            <span class="tools">Python · Excel</span>
+          </div>
+          <ul>
+            <li>Identified bimodal demand peaks (5–10 AM, 5–9 PM) and 40%+ "no cars available" cases in evenings, concentrated at airport pickups.</li>
+            <li>Recommended driver reallocation and surge forecasting targeting a ~20% cut in unfulfilled trips.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-top">
+            <h3>Student Extracurricular Activities (ECA) Survey Analysis</h3>
+            <span class="tools">R · Excel · Survey design</span>
+          </div>
+          <ul>
+            <li>Ran a random-sampling survey across education levels to study extracurricular preferences and academic impact.</li>
+            <li>Found Outdoor Games the most preferred activity (~30%), with most respondents at under 5 hours/week — a neutral-to-positive academic impact overall.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Education &amp; certifications</h2>
+        <span class="section-num mono">04</span>
+      </div>
+
+      <div class="edu-item">
+        <span class="edu-year mono">2025–2027</span>
+        <div>
+          <h3>M.Sc. in Statistics (Pursuing) — Presidency University, Kolkata</h3>
+          <p>Year 1 average SGPA: 9.40</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="edu-year mono">2022–2025</span>
+        <div>
+          <h3>B.Sc. in Statistics (Hons.) — Presidency University, Kolkata</h3>
+          <p>5th rank in the batch · CGPA 7.52</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="edu-year mono">2014–2022</span>
+        <div>
+          <h3>Higher Secondary Education — Rampurhat J.L. Vidyabhaban</h3>
+          <p>WBBSE board rank holder, Class X · Class X: 97.57% · Class XII: 95.8%</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="edu-year mono">Certs</span>
+        <div>
+          <h3>HP LIFE — Data Science &amp; Analytics Certification</h3>
+          <p>Deloitte — Data Analytics Virtual Job Simulation Certification</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's talk statistics, data or opportunities.</h2>
+    <p class="lead-text">Open to roles and collaborations in data analytics, statistical modelling and research.</p>
+    <div class="contact-links">
+      <a href="mailto:sayanchakraborty29122003@gmail.com">sayanchakraborty29122003@gmail.com</a>
+      <a href="tel:+917001609526">+91 7001609526</a>
+      <a href="https://linkedin.com/in/sayanchakraborty29" target="_blank" rel="noopener">linkedin.com/in/sayanchakraborty29</a>
+      <a href="https://github.com/StaticSayan" target="_blank" rel="noopener">github.com/StaticSayan</a>
+    </div>
+    <p class="fine-print">Sayan Chakraborty · Kolkata, India · Built from academic records at Presidency University.</p>
+  </div>
+</footer>
+
+<script>
+  const inkSoft = '#8B95A3';
+  const gridColor = 'rgba(20,30,40,0.08)';
+
+  const labels = ['B.Sc. S1','B.Sc. S2','B.Sc. S3','B.Sc. S4','B.Sc. S5','B.Sc. S6','M.Sc. S1','M.Sc. S2'];
+  const sgpa = [4.50, 6.50, 4.27, 8.91, 9.25, 9.50, 9.40, 9.40];
+
+  const ctxCombined = document.getElementById('chartCombined');
+  new Chart(ctxCombined, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'SGPA',
+        data: sgpa,
+        borderColor: '#2857C9',
+        backgroundColor: 'rgba(40,87,201,0.08)',
+        pointBackgroundColor: labels.map((l,i)=> i>=6 ? '#C98A2E' : '#2857C9'),
+        pointBorderColor: '#fff',
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.25
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => 'SGPA: ' + item.parsed.y.toFixed(2)
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 3.5, max: 10,
+          grid: { color: gridColor },
+          ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#4B535B' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#4B535B' }
+        }
+      }
+    }
+  });
+
+  const bscLabels = ['Sem 1','Sem 2','Sem 3','Sem 4','Sem 5','Sem 6'];
+  const bscMajor = [4.50, 6.50, 4.27, 8.91, 9.25, 9.50];
+  const bscOverall = [6.45, 6.50, 4.21, 8.93, 9.25, 9.50];
+
+  const ctxBsc = document.getElementById('chartBsc');
+  new Chart(ctxBsc, {
+    type: 'bar',
+    data: {
+      labels: bscLabels,
+      datasets: [
+        { label: 'Major SGPA', data: bscMajor, backgroundColor: '#2857C9' },
+        { label: 'Overall SGPA', data: bscOverall, backgroundColor: '#C98A2E' }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top', labels: { font: { family: 'Inter', size: 12 } } }
+      },
+      scales: {
+        y: {
+          min: 0, max: 10,
+          grid: { color: gridColor },
+          ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#4B535B' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'JetBrains Mono', size: 11 }, color: '#4B535B' }
+        }
+      }
+    }
+  });
+
+  // Tabs
+  const tabCombined = document.getElementById('tab-combined');
+  const tabBsc = document.getElementById('tab-bsc');
+  const panelCombined = document.getElementById('panel-combined');
+  const panelBsc = document.getElementById('panel-bsc');
+
+  function activate(tab){
+    const isCombined = tab === 'combined';
+    tabCombined.setAttribute('aria-selected', isCombined);
+    tabBsc.setAttribute('aria-selected', !isCombined);
+    panelCombined.hidden = !isCombined;
+    panelBsc.hidden = isCombined;
+  }
+  tabCombined.addEventListener('click', () => activate('combined'));
+  tabBsc.addEventListener('click', () => activate('bsc'));
+</script>
+
+</body>
+</html>
